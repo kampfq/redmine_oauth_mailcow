@@ -1,18 +1,21 @@
 require 'redmine'
-require_dependency 'redmine_omniauth_google/hooks'
+require_dependency 'redmine_oauth_rocketchat/hooks'
 
-Redmine::Plugin.register :redmine_omniauth_google do
-  name 'Redmine Omniauth Google plugin'
-  author 'Dmitry Kovalenok'
-  description 'This is a plugin for Redmine registration through google'
+Redmine::Plugin.register :redmine_oauth_rocketchat do
+  name 'Redmine OAuth Rocket.Chat plugin'
+  author 'y-k-m'
+  description 'This is a plugin for Redmine registration through Rocket.Chat'
   version '0.0.1'
-  url 'https://github.com/twinslash/redmine_omniauth_google'
-  author_url 'http://twinslash.com'
+  url 'https://github.com/y-k-m/redmine_oauth_rocketchat'
+  author_url 'https://github.com/y-k-m/'
 
   settings :default => {
+    :site_url => "https://example.rocket.chat",
     :client_id => "",
     :client_secret => "",
+    :auth_url => "https://example.rocket.chat/oauth/authorize",
+    :token_url => "https://example.rocket.chat/oauth/token",
+    :force_account_creation => true,
     :oauth_autentification => false,
-    :allowed_domains => ""
-  }, :partial => 'settings/google_settings'
+  }, :partial => 'settings/oauth_rocketchat_settings'
 end

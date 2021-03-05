@@ -1,0 +1,4 @@
+ja:
+  notice_unable_to_obtain_rocketchat_credentials: "Rocket.Chat から資格情報を取得出来ませんでした。"
+  notice_access_denied: "このサイトを利用するには、Rocket.Chat の資格情報の使用を許可する必要があります。"
+  login_via_rocketchat: "Rocket.Chat でログイン"

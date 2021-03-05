@@ -1,0 +1,29 @@
+
+<p>
+<label>Site URL:</label>
+<%= text_field_tag 'settings[site_url]', @settings['site_url'] %>
+</p>
+<p>
+<label>Client ID:</label>
+<%= text_field_tag 'settings[client_id]', @settings['client_id'] %>
+</p>
+<p>
+<label>Client Secret Key:</label>
+<%= text_field_tag 'settings[client_secret]', @settings['client_secret'] %>
+</p>
+<p>
+<label>Authorization URL:</label>
+<%= text_field_tag 'settings[auth_url]', @settings['auth_url'] %>
+</p>
+<p>
+<label>Access Token URL:</label>
+<%= text_field_tag 'settings[token_url]', @settings['token_url'] %>
+</p>
+<p>
+<label>Force account creation :</label>
+<%= check_box_tag "settings[force_account_creation]", true, @settings['force_account_creation'] %>
+</p>
+<p>
+<label>Enable OAuth authentification:</label>
+<%= check_box_tag "settings[oauth_authentification]", true, @settings['oauth_authentification'] %>
+</p>
