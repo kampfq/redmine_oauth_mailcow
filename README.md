@@ -8,7 +8,7 @@ Download the plugin and install required gems:
 
 ```console
 cd /path/to/redmine/plugins
-git clone https://github.com/y-k-m/redmine_oauth_rocketchat.git
+git clone https://github.com/kampfq/redmine_oauth_mailcow.git
 cd /path/to/redmine
 bundle install
 ```
@@ -26,9 +26,9 @@ To authenticate via Rocket.Chat you must first register your redmine instance vi
 ### Authentication Workflow
 
 1. An unauthenticated user requests the URL to your Redmine instance.
-2. User clicks the "Login via Rocket.Chat" buton.
-3. The plugin redirects them to a Rocket.Chat sign in page if they are not already signed in to their Rocket.Chat account.
-4. Rocket.Chat redirects user back to Redmine, where the Rocket.Chat OAuth plugin's controller takes over.
+2. User clicks the "Login via Mailcow" buton.
+3. The plugin redirects them to a Mailcow sign in page if they are not already signed in to their Mailcow account.
+4. Mailcow redirects user back to Redmine, where the Mailcow OAuth plugin's controller takes over.
 
 One of the following cases will occur:
 
