@@ -1,6 +1,6 @@
-## Redmine OAuth Rocket.Chat 
+## Redmine OAuth Mailcow
 
-This plugin is used to authenticate Redmine users using Rocket.Chat's OAuth provider.
+This plugin is used to authenticate Redmine users using Mailcow's OAuth provider.
 
 ### Installation:
 
@@ -21,7 +21,7 @@ touch /path/to/redmine/tmp/restart.txt
 
 ### Registration
 
-To authenticate via Rocket.Chat you must first register your redmine instance via the Rocket.Chat OAuth application configs.
+To authenticate via Mailcow you must first register your redmine instance via the Mailcow OAuth application configs.
 
 ### Authentication Workflow
 
