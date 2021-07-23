@@ -5,7 +5,7 @@ class RedmineOauthController < AccountController
   def oauth_rocketchat
     if Setting.plugin_redmine_oauth_rocketchat[:oauth_authentification]
       session[:back_url] = params[:back_url]
-      redirect_to oauth_client.auth_code.authorize_url(:redirect_uri => oauth_rocketchat_callback_url)
+      redirect_to oauth_client.auth_code.authorize_url(:redirect_uri => oauth_rocketchat_callback_url, :state => '1')
     else
       password_authentication
     end
@@ -13,16 +13,16 @@ class RedmineOauthController < AccountController
 
   def oauth_rocketchat_callback
     if params[:error]
-      flash[:error] = l(:notice_access_denied, :app => settings['app_name'])
+      flash[:error] = l(:notice_access_denied, :app => params[:error])
       redirect_to signin_path
     else
       token = oauth_client.auth_code.get_token(params[:code], :redirect_uri => oauth_rocketchat_callback_url)
-      result = token.get(settings['site_url'] + '/api/v1/me')
+      result = token.get(settings['site_url'] + settings['ws_url'])
       info = JSON.parse(result.body)
-      if info && info["_id"]
+      if info && info["active"]
         try_to_login info
       else
-        flash[:error] = l(:notice_unable_to_obtain_rocketchat_credentials, :app => settings['app_name'])
+        flash[:error] = l(:notice_unable_to_obtain_rocketchat_credentials, :app => info)
         redirect_to signin_path
       end
     end
@@ -31,18 +31,18 @@ class RedmineOauthController < AccountController
   def try_to_login info
    params[:back_url] = session[:back_url]
    session.delete(:back_url)
-   user = User.find_by_login(info['_id'])
-   if user.nil?
+   user = User.find_by_login(info[settings['field_username']])
+    if user.nil?
       # Create on the fly
       user = User.new
-      user.lastname, user.firstname = info["name"].split(' ') unless info['name'].nil?
-      user.firstname ||= info["username"]
-      user.lastname ||= info["username"]
-      user.mail = info["emails"][0]["address"]
-      user.login = info['_id']
+      user.firstname = info[settings['field_firstname']]
+      user.lastname = info[settings['field_lastname']]
+      user.mail = info[settings['field_email']]
+      user.login = info[settings['field_username']]
       user.random_password
       user.register
 
+      # Use registration if defined
       case Setting.self_registration
       when '1'
         register_by_email_activation(user) do
@@ -90,6 +90,7 @@ class RedmineOauthController < AccountController
   end
 
   def settings
-    @settings ||= Setting.plugin_redmine_oauth_rocketchat
+    @settings ||= Setting.plugin_redmine_omniauth_client
   end
+
 end
